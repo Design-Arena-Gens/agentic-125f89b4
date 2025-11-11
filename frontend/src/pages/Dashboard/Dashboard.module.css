@@ -1,0 +1,48 @@
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.statsRow {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 18px 45px -30px rgba(15, 23, 42, 0.55);
+  display: grid;
+  gap: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.list {
+  display: grid;
+  gap: 14px;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}

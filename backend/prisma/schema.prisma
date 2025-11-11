@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  passwordHash String
+  role         String    @default("MEMBER")
+  member       Member?   @relation(fields: [memberId], references: [id])
+  memberId     Int?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Member {
+  id               Int                 @id @default(autoincrement())
+  vin              String              @unique
+  firstName        String
+  lastName         String
+  email            String              @unique
+  phone            String
+  department       String
+  batch            String
+  joinDate         DateTime
+  status           String
+  position         String
+  skills           String
+  notes            String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  attendance       AttendanceRecord[]
+  performance      PerformanceRecord[]
+  users            User[]
+}
+
+model AttendanceRecord {
+  id        Int              @id @default(autoincrement())
+  date      DateTime
+  status    String
+  notes     String?
+  member    Member           @relation(fields: [memberId], references: [id])
+  memberId  Int
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([date])
+  @@unique([memberId, date])
+}
+
+model PerformanceRecord {
+  id           Int                 @id @default(autoincrement())
+  category     String
+  score        Int
+  rating       Int
+  notes        String?
+  recordedAt   DateTime            @default(now())
+  member       Member              @relation(fields: [memberId], references: [id])
+  memberId     Int
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  @@index([category])
+  @@index([recordedAt])
+}
